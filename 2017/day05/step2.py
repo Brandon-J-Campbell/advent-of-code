@@ -1,60 +1,32 @@
-def get(dict, c):
-    try:
-        value = dict[c]
+def RepresentsInt(s):
+    try: 
+        int(s)
         return True
-    except:
+    except ValueError:
         return False
-
-def compare(master, dict):
-    if len(master.items()) != len(dict.items()):
-        print("Length not the same!")
-        return False
-
-    for k, v in master.items():
-        if not get(dict, k):
-            print(k + " does not exist in dict!")
-            return False
-
-        if master[k] != dict[k]:
-            print(str(master[k]) + " does not equal " + str(dict[k]) + "!")
-            return False
     
-    return True
-
 f = open("input.txt", "r")
 
 result = 0
 
+array = []
+
 for line in f:
-    duplicates = 0
-    array = line.rstrip().split(" ")
-    for i in range(0, len(array)):
-        if duplicates == 0:
-            masterDict = {}
-            for c in array[i]:
-                if get(masterDict, c):
-                    masterDict[c] = masterDict[c] + 1
-                else:
-                    masterDict[c] = 1
-            for j in range(i + 1, len(array)):
-                if duplicates == 0:
-                    print("Comparing " + array[i] + " and " + array[j])
-                    dict = {}
-                    for ch in array[j]:
-                        if get(dict, ch):
-                            dict[ch] = dict[ch] + 1
-                        else:
-                            dict[ch] = 1
+    print(line.rstrip())
+    if RepresentsInt(line.rstrip()):
+        array.append(int(line.rstrip()))
 
-                    print(masterDict)
-                    print(dict)             
-                    if compare(masterDict, dict):
-                        print("Found duplicate!")
-                        duplicates = duplicates + 1
+i = 0
 
-    if duplicates == 0:
-        print("No duplicate found on " + line)
-        result = result + 1
+print(len(array))
+while i >= 0 and i < len(array):
+    result = result + 1
+    old = i
+    i = i + array[i]
+    if array[old] >= 3:
+        array[old] = array[old] - 1
+    else:
+        array[old] = array[old] + 1
 
 print(result)
 
