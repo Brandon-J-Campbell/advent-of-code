@@ -32,5 +32,5 @@ for i in range(0, 30000000):
         lastNumber = newNumber
     memory[oldNumber] = i
         
-print(numbers)
+print(numbers[len(numbers) - 1])
 f.close()
